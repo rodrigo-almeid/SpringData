@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.alura.spring.data.orm.FuncionarioProjecao;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.spring.data.orm.Funcionario;
@@ -29,6 +30,8 @@ public class RelatoriosService {
 			System.out.println("1 - Busca funcionario nome");
 			System.out.println("2 - Busca funcionario nome, data contratacao e salario maior");
 			System.out.println("3 - Busca funcionario data contratacao");
+			System.out.println("4 - Busca funcionario id salario");
+
 			
 			int action = scanner.nextInt();
 			
@@ -42,6 +45,9 @@ public class RelatoriosService {
 			case 3:
 				buscaFuncionarioDataContratacao(scanner);
 				break;
+				case 4:
+					pesquisaFuncionarioSalario();
+					break;
 			default:
 				system = false;
 				break;
@@ -81,5 +87,10 @@ public class RelatoriosService {
 		List<Funcionario> list = funcionarioRepository.findDataContratacaoMaior(localDate);
 		list.forEach(System.out::println);
 	}
+	private void pesquisaFuncionarioSalario() {
+		List<FuncionarioProjecao> list = funcionarioRepository.findFuncionarioSalario();
+		list.forEach(f -> System.out.println("| Funcionario: id " + f.getId() + " | nome: " + f.getNome() + " | Salario = " + f.getSalario() + " |"));
+	}
+
 	
 }
